@@ -1,0 +1,9 @@
+Larry corp has an engineering department.
+John leads the backend engineering team.
+Anna works with the infrastructure and DevOps team.
+Michael works with the product management team.
+Josept works with the software testing team.
+
+The engineering department is responsible for developing backend services.
+The DevOps team is responsible for cloud infrastructure.
+The testing team is responsible for testing software applications.

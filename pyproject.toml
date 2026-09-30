@@ -1,0 +1,11 @@
+[project]
+name = "my-native-rag-project"
+version = "0.1.0"
+description = "Hand-rolled Agentic RAG system"
+requires-python = ">=3.10"
+
+dependencies = [
+    "openai",
+    "python-dotenv",
+    "numpy"
+]

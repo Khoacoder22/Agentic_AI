@@ -1,0 +1,5 @@
+Larry corp is a software company.
+Larry corp develops software applications and backend services.
+The company has an engineering department responsible for backend.
+Larry corp was founded in 2020.
+The company headquarters is in Amsterdam.

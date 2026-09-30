@@ -1,0 +1,6 @@
+Larry corp uses PostgreSQL for its main application database.
+The backend services are written in Python.
+Larry corp moved its backend infrastructure to AWS in 2024.
+The company uses Amazon EC2 for several backend services.
+Amazon S3 is used for storing application files.
+Redis is used for caching frequently accessed data.

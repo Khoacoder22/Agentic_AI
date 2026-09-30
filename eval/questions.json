@@ -1,0 +1,85 @@
+[
+  {
+    "question": "What type of company is Larry corp?",
+    "answer": "Larry corp is a software company"
+  },
+  {
+    "question": "What programming language are Larry corp's backend services written in?",
+    "answer": "Python"
+  },
+  {
+    "question": "What database does Larry corp use?",
+    "answer": "PostgreSQL"
+  },
+  {
+    "question": "Which cloud platform does Larry corp use for its backend infrastructure?",
+    "answer": "AWS"
+  },
+  {
+    "question": "What AWS service does Larry corp use for backend services?",
+    "answer": "Amazon EC2"
+  },
+
+  {
+    "question": "Who is the CEO of Larry corp?",
+    "answer": "Larry"
+  },
+  {
+    "question": "Who is the software lead at Larry corp?",
+    "answer": "John"
+  },
+  {
+    "question": "Who is the tester at Larry corp?",
+    "answer": "Josept"
+  },
+  {
+    "question": "Who is the DevOps engineer at Larry corp?",
+    "answer": "Anna"
+  },
+  {
+    "question": "Who is the product manager at Larry corp?",
+    "answer": "Michael"
+  },
+
+  {
+    "question": "What database does QueuePro use?",
+    "answer": "PostgreSQL"
+  },
+  {
+    "question": "What programming language does QueuePro use for its backend?",
+    "answer": "Python"
+  },
+  {
+    "question": "Where is QueuePro deployed?",
+    "answer": "Amazon EC2"
+  },
+  {
+    "question": "Who leads the backend engineering team?",
+    "answer": "John"
+  },
+  {
+    "question": "Who is responsible for the DevOps work on Project Beta?",
+    "answer": "Anna"
+  },
+
+  {
+    "question": "Who is responsible for the DevOps work on the project that stores files using Amazon S3?",
+    "answer": "Anna"
+  },
+  {
+    "question": "What database is used by the product deployed on Amazon EC2?",
+    "answer": "PostgreSQL"
+  },
+  {
+    "question": "Who leads the project that uses Python and PostgreSQL?",
+    "answer": "John"
+  },
+  {
+    "question": "Who is responsible for the project deployed on Amazon EC2 that stores files using Amazon S3?",
+    "answer": "Anna"
+  },
+  {
+    "question": "Who is the CEO of the company whose backend infrastructure moved to AWS in 2024?",
+    "answer": "Larry"
+  }
+]

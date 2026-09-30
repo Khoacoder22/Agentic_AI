@@ -1,0 +1,6 @@
+Larry corp develops a product called QueuePro.
+QueuePro is a queue management application.
+QueuePro helps businesses manage customer waiting lines.
+QueuePro uses PostgreSQL as its main database.
+QueuePro backend services are written in Python.
+QueuePro is deployed using Amazon EC2.

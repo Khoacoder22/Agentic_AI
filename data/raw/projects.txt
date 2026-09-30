@@ -1,0 +1,9 @@
+Project Alpha is an internal project at Larry corp.
+John is the software lead for Project Alpha.
+Project Alpha uses Python for its backend services.
+Project Alpha uses PostgreSQL as its primary database.
+
+Project Beta is another project at Larry corp.
+Anna is responsible for the DevOps work on Project Beta.
+Project Beta is deployed on Amazon EC2.
+Project Beta stores files using Amazon S3.
