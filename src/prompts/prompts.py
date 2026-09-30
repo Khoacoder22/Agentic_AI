@@ -13,6 +13,7 @@ Rules:
 - Do not invent information.
 - If the answer is not supported by the context,
   say "I don't know".
+- Citation format: [source:chunk_id]
 """
 
 # AGENT DECISION 

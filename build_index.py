@@ -17,16 +17,16 @@ for document in documents:
 
     for chunk in chunks: 
 
-        embedding = create_embedding(chunk)
+        embedding = create_embedding(chunk["text"])
 
         all_chunks.append({
-            "text": chunk,
+            "chunk_id": chunk["chunk_id"],
+            "text": chunk["text"],
             "source": document["source"],
             "embedding": embedding
         })
 
 save_vectors(all_chunks)
-
 
 print(f"Created {len(all_chunks)} chunks.")
 print("Vector store saved successfully.")

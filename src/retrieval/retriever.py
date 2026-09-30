@@ -27,6 +27,7 @@ def retrieve(query: str, top_k: int = 3):
         score = cosine_similarity(query_embedding, document["embedding"])
 
         results.append({
+            "chunk_id": document["chunk_id"],
             "text" : document["text"],
             "source": document["source"],
             "score": score

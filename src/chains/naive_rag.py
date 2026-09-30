@@ -7,7 +7,8 @@ def naive_rag(question: str):
     results = retrieve(question, top_k=3)
 
     context = "\n\n".join(
-        result["text"]
+        f"[{result['source'].replace('.txt', '')}:{result['chunk_id']}]\n"
+        + result["text"]
         for result in results
     )
 
