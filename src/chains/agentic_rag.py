@@ -24,7 +24,6 @@ def decide_action(question, context):
 
 
 def generate_answer(question, context):
-
     prompt = f"""
 Answer the question using only the context below.
 
@@ -36,11 +35,21 @@ Context:
 
 Rules:
 - Use only the provided context.
+- Answer the exact question.
+- If the question asks "Who", provide the person's name when available.
+- Do not replace a person's name with a team, department, or role.
 - Do not invent information.
 - If the answer is not supported by the context,
   say "I don't know".
-"""
+- You MUST include a citation after the factual answer.
+- Copy the citation exactly from the context.
+- Citation format: [source:chunk_id]
 
+Example:
+John leads the backend engineering team. [departments:01]
+
+Return only the final answer.
+"""
     return ask_llm(prompt)
 
 
