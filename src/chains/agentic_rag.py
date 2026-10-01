@@ -24,6 +24,7 @@ def decide_action(question, context):
 
 
 def generate_answer(question, context):
+
     prompt = f"""
 Answer the question using only the context below.
 
@@ -41,16 +42,62 @@ Rules:
 - Do not invent information.
 - If the answer is not supported by the context,
   say "I don't know".
-- You MUST include a citation after the factual answer.
-- Copy the citation exactly from the context.
-- Citation format: [source:chunk_id]
+- Identify the source chunk that directly supports the answer.
+- Only use citation IDs that actually appear in the context.
 
-Example:
-John leads the backend engineering team. [departments:01]
+Return JSON only:
 
-Return only the final answer.
+{{
+    "answer": "your answer",
+    "citations": ["source:chunk_id"]
+}}
 """
-    return ask_llm(prompt)
+
+    response = ask_llm(prompt)
+
+    return json.loads(response)
+
+
+def validate_citations(result, context):
+
+    valid_citations = []
+
+    for item in context:
+
+        citation = (
+            f"{item['source'].replace('.txt', '')}:{item['chunk_id']}"
+        )
+
+        valid_citations.append(citation)
+
+    valid_result = []
+
+    for citation in result.get("citations", []):
+
+        if citation in valid_citations:
+            valid_result.append(citation)
+
+    result["citations"] = valid_result
+
+    return result
+
+
+def format_answer(result):
+
+    answer = result["answer"]
+
+    citations = result.get("citations", [])
+
+    if citations:
+
+        citation_text = " ".join(
+            f"[{citation}]"
+            for citation in citations
+        )
+
+        return f"{answer} {citation_text}"
+
+    return answer
 
 
 def self_check(question, answer, context):
@@ -70,17 +117,22 @@ def agentic_rag(question):
 
     context = []
 
-    # PHASE 1: AGENT RETRIEVAL
+    # AGENT RETRIEVAL
 
     retrieved_queries = []
 
     for round_number in range(MAX_ROUNDS):
+
         context_text = "\n\n".join(
-            item["text"]
+            f"[{item['source'].replace('.txt', '')}:{item['chunk_id']}]\n"
+            + item["text"]
             for item in context
         )
 
-        decision = decide_action(question, context_text)
+        decision = decide_action(
+            question,
+            context_text
+        )
 
         print(f"\n--- Agent Round {round_number + 1} ---")
         print("Decision:", decision)
@@ -91,7 +143,9 @@ def agentic_rag(question):
         query = decision["query"].strip()
 
         # Avoid retrieving the same query repeatedly
-        if query.lower() in [q.lower() for q in retrieved_queries]:
+        if query.lower() in [
+            q.lower() for q in retrieved_queries
+        ]:
             print("Repeated query detected. Stopping retrieval.")
             break
 
@@ -99,25 +153,39 @@ def agentic_rag(question):
 
         print("Retrieving:", query)
 
-        results = retrieve(query, top_k=3)
+        results = retrieve(
+            query,
+            top_k=3
+        )
+
         context.extend(results)
 
-    # PHASE 2: GENERATE ANSWER
+    # GENERATE ANSWER
 
     context_text = "\n\n".join(
-        item["text"]
+        f"[{item['source'].replace('.txt', '')}:{item['chunk_id']}]\n"
+        + item["text"]
         for item in context
     )
 
-    answer = generate_answer(
+    answer_result = generate_answer(
         question,
         context_text
     )
 
+    # Validate citation IDs
+    answer_result = validate_citations(
+        answer_result,
+        context
+    )
+
+    # Convert JSON result -> final text
+    answer = format_answer(answer_result)
+
     print("\nGenerated answer:")
     print(answer)
 
-    # PHASE 3: SELF-CHECK
+    # SELF-CHECK
 
     check = self_check(
         question,
@@ -132,7 +200,7 @@ def agentic_rag(question):
     if check["supported"]:
         return answer
 
-    # PHASE 4: RETRIEVE MISSING INFO
+    # RETRIEVE MISSING INFO
 
     missing = check.get(
         "missing_information",
@@ -149,16 +217,26 @@ def agentic_rag(question):
 
     context.extend(extra_results)
 
-    # PHASE 5: FINAL ANSWER
+    # FINAL ANSWER
 
     context_text = "\n\n".join(
-        item["text"]
+        f"[{item['source'].replace('.txt', '')}:{item['chunk_id']}]\n"
+        + item["text"]
         for item in context
     )
 
-    final_answer = generate_answer(
+    final_result = generate_answer(
         question,
         context_text
+    )
+
+    final_result = validate_citations(
+        final_result,
+        context
+    )
+
+    final_answer = format_answer(
+        final_result
     )
 
     return final_answer
